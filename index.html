@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Deeplink</title>
+    <style>
+        .container {
+            margin: 20px;
+        }
+        .url-input {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            width: calc(100% - 22px);
+            box-sizing: border-box;
+        }
+        .url-button {
+            display: block;
+            margin: 10px 0;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .url-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <input type="text" id="urlInput" class="url-input" placeholder="Enter URL here">
+        <button id="deeplinkButton" class="url-button">Execute Deeplink</button>
+    </div>
+
+    <script>
+        document.getElementById('deeplinkButton').onclick = function() {
+            const url = document.getElementById('urlInput').value;
+            if (!url) {
+                alert('Please enter a URL.');
+                return;
+            }
+
+            if (window.mobile === undefined) {
+                alert('This button only works on mobile devices');
+                return;
+            }
+            window.mobile.postMessage('deeplink', '*', url);
+        };
+    </script>
+</body>
+</html>
